@@ -1,28 +1,111 @@
 //Destructuring
 
-//Destructuring allows binding using pattern matching, with support for matching arrays and objects. Destructuring is fail-soft, similar to standard object lookup foo["bar"], producing undefined values when not found.
+//Destructuring allows binding using pattern matching, with support for matching arrays and objects. 
+//Destructuring is fail-soft, similar to standard object lookup foo["bar"], producing undefined values when not found.
+//Array destructuring gives a quicker and more fine-grained approach to interacting with elements in an array
+const foo = ["one", "two", "three", "four"];
 
-// list matching
-var [a, , b] = [1,2,3];
+const [a, b, c] = foo;
+console.log([a, b, c]);
+console.log(a + b + c);
 
-// object matching
-var { op: a, lhs: { op: b }, rhs: c }
-       = getASTNode()
+const [x, , z] = foo;
 
-// object matching shorthand
-// binds `op`, `lhs` and `rhs` in scope
-var {op, lhs, rhs} = getASTNode()
+console.log(x + z);
 
-// Can be used in parameter position
-function g({name: x}) {
-  console.log(x);
+const [, , p] = foo;
+
+console.log(p);
+
+//Object destructuring is similar to array destructuring but uses key names to do the destructuring.
+const fooDes = {
+    g: "1",
+    m: "2",
+    p: "3"
+};
+const {
+    g,
+    m
+} = fooDes;
+
+console.log(g + m);
+
+const {
+    g: baz
+} = fooDes;
+console.log(baz);
+
+let funcExam = () => {
+    let foo = {
+        a: "1",
+        b: "2",
+        c: "3"
+    };
+
+    const computed = "d";
+
+    foo[computed] = "4";
+
+    // Destructure computed property
+    const {
+        [computed]: bar
+    } = foo;
+
+    console.log(bar);
+
+    const baz = {
+        w: {
+            x: "5",
+            y: "6"
+        }
+    };
+
+    // Notice the overloaded ":" for nesting
+    const {
+        w: {
+            x: z
+        }
+    } = baz;
+
+    console.log(z);
 }
-g({name: 5})
 
-// Fail-soft destructuring
-var [a] = [];
-a === undefined;
+funcExam();
 
-// Fail-soft destructuring with defaults
-var [a = 1] = [];
-a === 1;
+arrObjectDest = function () {
+    const foo = {
+        a: [{
+            b: "2"
+        }, {
+            c: ["3", "4"]
+        }]
+    };
+
+    const {
+        a: [{
+            b: x
+        }, {
+            c: [y, z]
+        }]
+    } = foo;
+
+    console.log(x)
+    console.log(y)
+    console.log(z)
+};
+
+arrObjectDest();
+
+
+spreadArrays = function () {
+    const foo = [1, 2, 3, 4, 5];
+
+    const [a, b, ...cde] = foo;
+
+    console.log(cde);
+
+    // Can be used in other patterns
+    const [w, , ...[, , z]] = foo;
+
+    console.log(z);
+}
